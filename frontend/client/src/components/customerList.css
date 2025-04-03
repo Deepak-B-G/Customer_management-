@@ -1,3 +1,28 @@
+.invoice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.invoice-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
 .search-box {
     display: flex;
     justify-content: center;
@@ -10,6 +35,7 @@ input {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 70%;
 }
 
 button {
@@ -20,6 +46,43 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.invoice-content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    text-align: left;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.invoice-number {
+    font-size: 14px;
+    color: gray;
+}
+
+.company-info {
+    text-align: right;
+    font-size: 14px;
+}
+
+.bill-to {
+    margin-top: 20px;
+}
+
+.bill-to h3 {
+    font-weight: bold;
 }
 
 table {
@@ -36,4 +99,37 @@ th, td {
 
 th {
     background-color: #f4f4f4;
+}
+
+.totals {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.total-bold {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.download-btn {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.download-btn button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

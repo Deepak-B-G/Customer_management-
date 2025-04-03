@@ -1,15 +1,10 @@
-// import axios from "axios";
+const API_URL = "http://localhost:5000"; // Change when deploying
 
-// const API = axios.create({
-//     baseURL: "http://localhost:5000", // update this to your backend URL when deploying
-// });
-
-
+// Search transactions by customer name or phone
 export const searchTransactions = async (query) => {
-    const response = await fetch(`http://localhost:5000/api/transactions/search?query=${query}`);
-    if (!response.ok) {
+    const response = await fetch(`${API_URL}/api/transactions/search?query=${query}`);
+    if (!response.ok) { 
         throw new Error("Failed to fetch transactions");
     }
-    return response.json(); // Ensure response is JSON
+    return response.json();
 };
-// You can add more functions here for other endpoints.

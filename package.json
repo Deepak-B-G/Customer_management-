@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "axios": "^1.8.4"
+    "@pdf-viewer/react": "^1.2.0",
+    "@react-pdf/renderer": "^4.3.0",
+    "axios": "^1.8.4",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2"
   }
 }
