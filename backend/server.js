@@ -19,10 +19,12 @@ mongoose
 
     // Import Routes
 const customerRoutes = require("./routes/customers");
-const transactionRoutes = require("./routes/transactions"); // ✅ Add this
+const invoice = require("./routes/invoice");// ✅ Add this
+const transactionRoutes = require("./routes/transactions");
 
 // Use Routes
 app.use("/api/customers", customerRoutes);
+app.use("/api/invoice", invoice);// ✅ Add this
 app.use("/api/transactions", transactionRoutes); // ✅ Add this
     
 

@@ -3,49 +3,45 @@ const router = express.Router();
 const Transaction = require("../models/Transaction");
 const Customer = require("../models/Customer");
 
-// Search transactions by customer name or phone number
-router.get("/search", async (req, res) => {
+// POST /api/transactions
+router.post("/", async (req, res) => {
+    const { customerName, transactions } = req.body;
+
     try {
-        const query = req.query.query;
-
-        // Find the customer matching the name or phone
-        const customers = await Customer.find({
-            $or: [
-                { name: { $regex: query, $options: "i" } }, // Search by name (case-insensitive)
-                { phone: { $regex: query, $options: "i" } }, // Search by phone
-            ],
-        });
-
-        if (customers.length === 0) {
-            return res.status(404).json({ message: "No customers found" });
+        if (!customerName || !transactions || !Array.isArray(transactions)) {
+            return res.status(400).json({ success: false, message: "Invalid request body" });
         }
 
-        // Get customer IDs
-        const customerIds = customers.map((c) => c._id);
+        // Find or create customer
+        let customer = await Customer.findOne({ name: customerName });
+        if (!customer) {
+            customer = new Customer({ name: customerName });
+            await customer.save();
+        }
 
-        // Find transactions for those customers and populate customer details
-        const transactions = await Transaction.find({ customer: { $in: customerIds } })
-        .populate("customer", "name phone") // ✅ Populate customer details
-        .lean(); // Convert to plain objects for modification
+        // Prepare transactions with computed fields
+        const newTransactions = transactions.map((txn) => {
+            const totalPiecesSold = txn.totalBags * txn.coconutsPerBag;
+            const totalAmount = totalPiecesSold * txn.coconutPrice;
 
-        // Add customer name and phone to each transaction response
-        const formattedTransactions = transactions.map((txn) => ({
-            _id: txn._id,
-            customer_name: txn.customer.name, // Extract name from populated data
-            phone: txn.customer.phone, // Extract phone from populated data
-            coconutType: txn.coconutType,
-            coconutPrice: txn.coconutPrice,
-            coconutsPerBag: txn.coconutsPerBag,
-            totalBags: txn.totalBags,
-            totalCoconuts: txn.totalBags * txn.coconutsPerBag, // Calculate total coconuts
-            totalAmount: txn.totalAmount,
-            date: txn.date,
-        }));
+            return {
+                customer: customer._id,
+                coconutType: txn.coconutType,
+                coconutPrice: txn.coconutPrice,
+                coconutsPerBag: txn.coconutsPerBag,
+                totalBags: txn.totalBags,
+                totalPiecesSold,
+                totalAmount,
+                date: new Date(),
+            };
+        });
 
-        res.json(formattedTransactions);
-    } catch (error) {
-        console.error("Error searching transactions:", error);
-        res.status(500).json({ error: "Server error" });
+        await Transaction.insertMany(newTransactions);
+
+        res.status(201).json({ success: true, message: "Transactions saved successfully" });
+    } catch (err) {
+        console.error("Error in POST /api/transactions:", err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 

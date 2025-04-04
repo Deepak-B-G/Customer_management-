@@ -8,7 +8,11 @@ const transactionSchema = new mongoose.Schema({
     totalBags: { type: Number, required: true },
     totalPiecesSold: { type: Number, default: 0 },
     totalAmount: { type: Number, required: true },
-    date: { type: Date, default: Date.now },
+    date: { 
+        type: String, 
+        default: () => new Date().toISOString()  // Stores the date in ISO format
+    },
 });
 
 module.exports = mongoose.model("Transaction", transactionSchema);
+    

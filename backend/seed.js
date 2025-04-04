@@ -21,6 +21,9 @@ async function seedTransactions() {
                 coconutsPerBag: 50,
                 totalBags: 10,
                 coconutPrice: 15,
+                totalPiecesSold: 50 * 10,
+                totalAmount: 50 * 10 * 15,
+                date: new Date().toISOString()
             },
             {
                 customer: "67ec374c74f69bcb6d2dcc65", // Deepak
@@ -29,6 +32,9 @@ async function seedTransactions() {
                 coconutsPerBag: 30,
                 totalBags: 10,
                 coconutPrice: 20,
+                totalPiecesSold: 30 * 10,
+                totalAmount: 30 * 10 * 20,
+                date: new Date().toISOString()
             },
             {
                 customer: "67ec374c74f69bcb6d2dcc66", // Sai
@@ -37,6 +43,9 @@ async function seedTransactions() {
                 coconutsPerBag: 40,
                 totalBags: 5,
                 coconutPrice: 25,
+                totalPiecesSold: 40 * 5,
+                totalAmount: 40 * 5 * 25,
+                date: new Date().toISOString()
             }
         ]);
 

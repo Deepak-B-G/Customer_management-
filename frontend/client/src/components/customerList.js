@@ -44,9 +44,7 @@ const CustomerInvoice = () => {
         pdf.save("Transaction_Invoice.pdf");
     };
 
-    const subtotal = transactions.reduce((sum, txn) => sum + txn.totalAmount, 0);
-    const tax = subtotal * 0.10; // 10% tax
-    const total = subtotal + tax;
+    const total = transactions.reduce((sum, txn) => sum + txn.totalAmount, 0);
 
     return (
         <div className="invoice-container">
@@ -72,10 +70,6 @@ const CustomerInvoice = () => {
                                 <h1 className="invoice-title">INVOICE</h1>
                                 <p className="invoice-number">Invoice #INV-{new Date().getFullYear()}-001</p>
                             </div>
-                            <div className="company-info">
-                                <h2>Company Name</h2>
-                                <p>123 Business Street<br />City, State 12345</p>
-                            </div>
                         </div>
                         <div className="bill-to">
                             <h3>Bill To:</h3>
@@ -84,18 +78,27 @@ const CustomerInvoice = () => {
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Date</th>
                                     <th>Description</th>
-                                    <th>Quantity</th>
                                     <th>Unit Price</th>
+                                    <th>Coconuts per Bag</th>
+                                    <th>Number of Bags</th>
+                                    <th>Quantity</th>
                                     <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {transactions.map((txn, index) => (
                                     <tr key={index}>
+                                        <td>
+                                        {new Date(txn.date).toLocaleDateString("en-GB")}{" "}
+                                        {new Date(txn.date).toLocaleTimeString("en-GB", { hour12: false })}
+                                        </td>
                                         <td>{txn.coconutType}</td>
-                                        <td>{txn.totalCoconuts}</td>
                                         <td>₹{txn.coconutPrice.toFixed(2)}</td>
+                                        <td>{txn.coconutsPerBag}</td>
+                                        <td>{txn.totalBags}</td>
+                                        <td>{txn.totalCoconuts}</td>
                                         <td>₹{txn.totalAmount.toFixed(2)}</td>
                                     </tr>
                                 ))}
@@ -103,14 +106,6 @@ const CustomerInvoice = () => {
                         </table>
                         <div className="totals">
                             <div>
-                                <div className="total-row">
-                                    <span>Subtotal:</span>
-                                    <span>₹{subtotal.toFixed(2)}</span>
-                                </div>
-                                <div className="total-row">
-                                    <span>Tax (10%):</span>
-                                    <span>₹{tax.toFixed(2)}</span>
-                                </div>
                                 <div className="total-row total-bold">
                                     <span>Total:</span>
                                     <span>₹{total.toFixed(2)}</span>
