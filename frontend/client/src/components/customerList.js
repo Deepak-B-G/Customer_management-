@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { searchTransactions } from "../api";
 import html2pdf from "html2pdf.js";
+import Invoice from "./invoice"; // import the new component
 import "./components.css";
 
 const CustomerInvoice = () => {
@@ -44,8 +45,6 @@ const CustomerInvoice = () => {
         html2pdf().from(element).set(options).save();
     };
 
-    const total = transactions.reduce((sum, txn) => sum + txn.totalAmount, 0);
-
     return (
         <div className="invoice-container">
             <div className="invoice-card">
@@ -64,60 +63,12 @@ const CustomerInvoice = () => {
                 {error && <p className="error">{error}</p>}
 
                 {transactions.length > 0 && (
-                    <div ref={printRef} className="invoice-content">
-                        <div className="invoice-header">
-                            <div>
-                                <h1 className="invoice-title">INVOICE</h1>
-                                <p className="invoice-number">Invoice #INV-{new Date().getFullYear()}-001</p>
-                            </div>
+                    <>
+                        <Invoice transactions={transactions} ref={printRef} />
+                        <div className="download-btn">
+                            <button onClick={handleDownloadPdf}>Download PDF</button>
                         </div>
-                        <div className="bill-to">
-                            <h3>Bill To:</h3>
-                            <p>{transactions[0].customer_name}<br />{transactions[0].phone}</p>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Unit Price</th>
-                                    <th>Coconuts per Bag</th>
-                                    <th>Number of Bags</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {transactions.map((txn, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            {new Date(txn.date).toLocaleDateString("en-GB")}{" "}
-                                            {new Date(txn.date).toLocaleTimeString("en-GB", { hour12: false })}
-                                        </td>
-                                        <td>{txn.coconutType}</td>
-                                        <td>₹{txn.coconutPrice.toFixed(2)}</td>
-                                        <td>{txn.coconutsPerBag}</td>
-                                        <td>{txn.totalBags}</td>
-                                        <td>{txn.totalCoconuts}</td>
-                                        <td>₹{txn.totalAmount.toFixed(2)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div className="totals">
-                            <div>
-                                <div className="total-row total-bold">
-                                    <span>Total:</span>
-                                    <span>₹{total.toFixed(2)}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                {transactions.length > 0 && (
-                    <div className="download-btn">
-                        <button onClick={handleDownloadPdf}>Download PDF</button>
-                    </div>
+                    </>
                 )}
             </div>
         </div>
