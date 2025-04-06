@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { searchTransactions } from "../api";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import "./customerList.css";
+import "./components.css";
 
 const CustomerInvoice = () => {
     const [query, setQuery] = useState("");
@@ -24,7 +24,7 @@ const CustomerInvoice = () => {
                 setTransactions(data);
             }
         } catch (error) {
-            setError("Error fetching transactions.");
+            setError("User not found!");
         } finally {
             setLoading(false);
         }

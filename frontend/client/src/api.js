@@ -25,3 +25,20 @@ export const addTransactions = async ({ customerName, transactions }) => {
 
     return response.json();
 };
+
+// Add a new customer
+export const addCustomer = async ({ name, phone }) => {
+    const response = await fetch(`${API_URL}/api/customers`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, phone }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to add customer");
+    }
+
+    return response.json();
+};
