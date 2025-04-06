@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { searchTransactions } from "../api";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import html2pdf from "html2pdf.js";
 import "./components.css";
 
 const CustomerInvoice = () => {
@@ -9,7 +8,7 @@ const CustomerInvoice = () => {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const printRef = React.useRef(null);
+    const printRef = useRef(null);
 
     const handleSearch = async () => {
         setLoading(true);
@@ -30,18 +29,19 @@ const CustomerInvoice = () => {
         }
     };
 
-    const handleDownloadPdf = async () => {
+    const handleDownloadPdf = () => {
         const element = printRef.current;
         if (!element) return;
 
-        const canvas = await html2canvas(element, { scale: 3, useCORS: true });
-        const imageData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        const options = {
+            margin: 10,
+            filename: "Transaction_Invoice.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
 
-        pdf.addImage(imageData, "PNG", 10, 10, pdfWidth - 20, pdfHeight);
-        pdf.save("Transaction_Invoice.pdf");
+        html2pdf().from(element).set(options).save();
     };
 
     const total = transactions.reduce((sum, txn) => sum + txn.totalAmount, 0);
@@ -91,8 +91,8 @@ const CustomerInvoice = () => {
                                 {transactions.map((txn, index) => (
                                     <tr key={index}>
                                         <td>
-                                        {new Date(txn.date).toLocaleDateString("en-GB")}{" "}
-                                        {new Date(txn.date).toLocaleTimeString("en-GB", { hour12: false })}
+                                            {new Date(txn.date).toLocaleDateString("en-GB")}{" "}
+                                            {new Date(txn.date).toLocaleTimeString("en-GB", { hour12: false })}
                                         </td>
                                         <td>{txn.coconutType}</td>
                                         <td>₹{txn.coconutPrice.toFixed(2)}</td>

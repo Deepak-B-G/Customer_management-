@@ -13,21 +13,21 @@ function App() {
 
             <CustomerInvoice />
 
+
+            {showAddCustomer && <AddCustomerForm />}
             <div style={{ textAlign: "center", margin: "20px" }}>
                 <button onClick={() => setShowAddCustomer((prev) => !prev)}>
                     {showAddCustomer ? "Close" : "➕ Add New Customers"}
                 </button>
             </div>
 
-            {showAddCustomer && <AddCustomerForm />}
-
+            {addTransactions && <TransactionEntryForm />}
             <div style={{ textAlign: "center", margin: "20px" }}>
                 <button onClick={() => setaddTransactions((prev) => !prev)}>
                     {addTransactions ? "Close" : "➕ Add New Transactions"}
                 </button>
             </div>
 
-            {addTransactions && <TransactionEntryForm />}
         </div>
     );
 }
