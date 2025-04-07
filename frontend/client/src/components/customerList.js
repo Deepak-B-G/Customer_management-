@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { searchTransactions } from "../api";
-import html2pdf from "html2pdf.js";
 import Invoice from "./invoice"; // import the new component
 import "./components.css";
 
@@ -30,21 +29,6 @@ const CustomerInvoice = () => {
         }
     };
 
-    const handleDownloadPdf = () => {
-        const element = printRef.current;
-        if (!element) return;
-
-        const options = {
-            margin: 10,
-            filename: "Transaction_Invoice.pdf",
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        };
-
-        html2pdf().from(element).set(options).save();
-    };
-
     return (
         <div className="invoice-container">
             <div className="invoice-card">
@@ -65,9 +49,7 @@ const CustomerInvoice = () => {
                 {transactions.length > 0 && (
                     <>
                         <Invoice transactions={transactions} ref={printRef} />
-                        <div className="download-btn">
-                            <button onClick={handleDownloadPdf}>Download PDF</button>
-                        </div>
+
                     </>
                 )}
             </div>

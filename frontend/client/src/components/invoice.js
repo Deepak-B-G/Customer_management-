@@ -28,7 +28,7 @@ const Invoice = forwardRef(({ transactions }, ref) => {
             y: 10,
             width: pageWidth - 20, // Leave 10pt margin on both sides
             html2canvas: {
-                scale: 0.88, // Slight scale boost for clarity and fitting
+                scale: 0.89, // Slight scale boost for clarity and fitting
                 useCORS: true,
             },
         });

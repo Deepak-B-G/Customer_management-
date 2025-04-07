@@ -17,7 +17,7 @@ function App() {
             {showAddCustomer && <AddCustomerForm />}
             <div style={{ textAlign: "center", margin: "20px" }}>
                 <button onClick={() => setShowAddCustomer((prev) => !prev)}>
-                    {showAddCustomer ? "Close" : "➕ Add New Customers"}
+                    {showAddCustomer ? "Close" : "Add New Customers"}
                 </button>
             </div>
 

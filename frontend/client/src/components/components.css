@@ -1,27 +1,56 @@
+:root {
+    --primary: #2C3E50;      /* Slate Blue – professional and strong */
+    --secondary: #18BC9C;    /* Fresh Teal – modern and inviting */
+    --accent: #E74C3C;       /* Bold Accent Red – for highlights and alerts */
+    --background: #ECF0F1;   /* Light Gray – clean background */
+    --text: #2D3436;         /* Dark Gray – clear, legible text */
+    --border: #BDC3C7;       /* Soft Gray – subtle borders */
+    --radius: 10px;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --transition: 0.3s ease;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: var(--background);
+    color: var(--text);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* Container centers the content */
 .invoice-container {
     display: flex;
     justify-content: center;
-    min-height: 1vh;
-    background-color: #f8f9fa;
+    align-items: center;
     padding: 20px;
 }
 
+/* Card styling for the invoice */
 .invoice-card {
     background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     padding: 20px;
     width: 100%;
     max-width: 650px;
     text-align: center;
+    margin: 0 auto;
+    border: 2px solid var(--primary);
 }
 
+/* Title styling */
 .title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: var(--primary);
 }
 
+/* Search box layout */
 .search-box {
     display: flex;
     justify-content: center;
@@ -29,75 +58,96 @@
     margin-bottom: 20px;
 }
 
+/* Input field styling */
 input {
-    padding: 8px;
+    padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     width: 70%;
+    max-width: 400px;
 }
 
+/* Button styling */
 button {
-    padding: 8px 12px;
+    padding: 10px 16px;
     font-size: 16px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary);
+    color: var(--white, #ffffff);
     border: none;
+    border-radius: var(--radius);
     cursor: pointer;
-    border-radius: 5px;
+    transition: background-color var(--transition), transform var(--transition);
 }
 
+button:hover {
+    background-color: var(--secondary);
+    transform: scale(1.05);
+}
+
+/* Invoice content section */
 .invoice-content {
     padding: 20px;
-    border: 1px solid black;
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     background-color: #ffffff;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-
+/* Header layout for invoice */
 .invoice-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .invoice-title {
     font-size: 22px;
     font-weight: bold;
+    color: var(--primary);
 }
 
 .invoice-number {
     font-size: 14px;
-    color: black;
+    color: var(--secondary);
 }
 
+/* Bill-to section */
 .bill-to {
-    /* margin-top: 20px; */
-    font-size: 20px;
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 .bill-to h3 {
     font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--primary);
 }
 
+/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    font-size: 15px;
 }
 
 th,
 td {
     padding: 10px;
-    border: 1px solid #000000;
+    border: 1px solid var(--secondary);
     text-align: center;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: var(--background);
+    font-weight: bold;
 }
 
+/* Totals section */
 .totals {
     margin-top: 20px;
     display: flex;
@@ -109,6 +159,7 @@ th {
     justify-content: space-between;
     font-size: 16px;
     margin-bottom: 5px;
+    width: 200px;
 }
 
 .total-bold {
@@ -116,17 +167,9 @@ th {
     font-size: 18px;
 }
 
+/* Download button container */
 .download-btn {
     margin-top: 20px;
     text-align: center;
 }
 
-.download-btn button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
